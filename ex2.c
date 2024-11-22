@@ -13,6 +13,9 @@ int main() {
     int faceSize1;
     //Variables for case 2
     int harmonyNumber2, harmonyNumberSize2 = 0, harmonyNumberRightSum2 = 0, harmonyNumberLeftSum2 = 0;
+    //Variables for case 3
+    int generousNumber3, dividersSum3 = 0;
+
     do {
         printf("Choose an option:\n"
             "\t1. Happy Face\n"
@@ -100,9 +103,9 @@ int main() {
                 printf("harmonyNumberSize2 %d:\n", harmonyNumberSize2);
                 //Sum the right digits
                 for (int i = 0; i <= harmonyNumberSize2; i++) {
-                    if (i < harmonyNumberSize2 / 2 ) {
+                    if (i < harmonyNumberSize2 / 2) {
                         harmonyNumberRightSum2 += harmonyNumber2 % 10;
-                    } else if (i > harmonyNumberSize2 / 2 ) {
+                    } else if (i > harmonyNumberSize2 / 2) {
                         harmonyNumberLeftSum2 += harmonyNumber2 % 10;
                     }
                     harmonyNumber2 = harmonyNumber2 % 10;
@@ -116,16 +119,36 @@ int main() {
                     printf("This number isn't balanced and destroys harmony.\n");
                 }
                 //Cleanup for our next uses
-                harmonyNumberSize2=0, harmonyNumberRightSum2=0, harmonyNumberLeftSum2=0;
+                harmonyNumberSize2 = 0, harmonyNumberRightSum2 = 0, harmonyNumberLeftSum2 = 0;
                 break;
             }
+            case 3: {
+                // Case 3: determine whether the sum of the proper divisors (od an integer) is greater than the number itself
+                /* Examples:
+                Abudant: 12, 20, 24
+                Not Abudant: 3, 7, 10
+                Please notice: the number has to be bigger than 0.
+                */
+                printf("Enter a number: :\n");
+                scanf("%d", &generousNumber3);
+                // Check face size validation
+                while (generousNumber3 < 0) {
+                    printf("Only positive number is allowed, please try again:\n");
+                    scanf("%d", &generousNumber3);
+                }
 
-            // Case 3: determine whether the sum of the proper divisors (od an integer) is greater than the number itself
-            /* Examples:
-            Abudant: 12, 20, 24
-            Not Abudant: 3, 7, 10
-            Please notice: the number has to be bigger than 0.
-            */
+                for (int i = 1; i < generousNumber3; i++) {
+                    if (generousNumber3 % i == 0)
+                        dividersSum3 += i;
+                }
+                if (generousNumber3 < dividersSum3) {
+                    printf("This number is generous!\n");
+                } else {
+                    printf("This number does not share.\n");
+                }
+                dividersSum3=0;
+                break;
+            }
 
             // Case 4: determine wether a number is a prime.
             /* Examples:
