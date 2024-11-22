@@ -10,7 +10,9 @@ int main() {
     int userChoice;
     //Variables for case 1
     char eyes1, nose1, mouth1;
-    int faceSize1 = 0;
+    int faceSize1;
+    //Variables for case 2
+    int harmonyNumber2, harmonyNumberSize2 = 0, harmonyNumberRightSum2 = 0, harmonyNumberLeftSum2 = 0;
     do {
         printf("Choose an option:\n"
             "\t1. Happy Face\n"
@@ -49,14 +51,14 @@ int main() {
                             // First row: Eyes
                             if (j == 1) {
                                 printf("%c", eyes1); // Left eye
-                            } else if (j == faceSize1+1) {
+                            } else if (j == faceSize1 + 1) {
                                 printf("%c", eyes1); // Right eye
                             } else {
                                 printf(" ");
                             }
                         } else if (i == 1) {
                             // Middle row: Nose
-                            if (j == (faceSize1+1) / 2) {
+                            if (j == (faceSize1 + 1) / 2) {
                                 printf("%c", nose1);
                             } else {
                                 printf(" ");
@@ -84,6 +86,38 @@ int main() {
                 Not blanced: 1552, 34
                 Please notice: the number has to be bigger than 0.
                 */
+                printf("Enter a number: :\n");
+                scanf("%d", &harmonyNumber2);
+                // Check face size validation
+                while (harmonyNumber2 < 0) {
+                    printf("Only positive number is allowed, please try again:\n");
+                    scanf("%d", &harmonyNumber2);
+                }
+                //Get the number og digits in the given harmony number
+                for (int temp = harmonyNumber2; temp > 0; temp /= 10) {
+                    harmonyNumberSize2++;
+                }
+                printf("harmonyNumberSize2 %d:\n", harmonyNumberSize2);
+                //Sum the right digits
+                for (int i = 0; i <= harmonyNumberSize2; i++) {
+                    if (i < harmonyNumberSize2 / 2 ) {
+                        harmonyNumberRightSum2 += harmonyNumber2 % 10;
+                    } else if (i > harmonyNumberSize2 / 2 ) {
+                        harmonyNumberLeftSum2 += harmonyNumber2 % 10;
+                    }
+                    harmonyNumber2 = harmonyNumber2 % 10;
+                }
+                printf("%d\n", harmonyNumberRightSum2);
+                printf("%d\n", harmonyNumberLeftSum2);
+
+                if (harmonyNumberRightSum2 == harmonyNumberLeftSum2) {
+                    printf("This number is balanced and brings harmony!\n");
+                } else {
+                    printf("This number isn't balanced and destroys harmony.\n");
+                }
+                //Cleanup for our next uses
+                harmonyNumberSize2=0, harmonyNumberRightSum2=0, harmonyNumberLeftSum2=0;
+                break;
             }
 
             // Case 3: determine whether the sum of the proper divisors (od an integer) is greater than the number itself
