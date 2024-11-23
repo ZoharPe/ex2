@@ -15,6 +15,10 @@ int main() {
     int harmonyNumber2, harmonyNumberSize2 = 0, harmonyNumberRightSum2 = 0, harmonyNumberLeftSum2 = 0;
     //Variables for case 3
     int generousNumber3, dividersSum3 = 0;
+    //Variables for case 4
+    int number4, reveresedNumber4 = 0, flag4 = 0;
+    //Variables for case 5
+    int number5, squereDigitsSum5 = 0, numberTemp5, digitTemp5;
 
     do {
         printf("Choose an option:\n"
@@ -91,7 +95,7 @@ int main() {
                 */
                 printf("Enter a number: :\n");
                 scanf("%d", &harmonyNumber2);
-                // Check face size validation
+                // Check validation
                 while (harmonyNumber2 < 0) {
                     printf("Only positive number is allowed, please try again:\n");
                     scanf("%d", &harmonyNumber2);
@@ -131,7 +135,7 @@ int main() {
                 */
                 printf("Enter a number: :\n");
                 scanf("%d", &generousNumber3);
-                // Check face size validation
+                // Check validation
                 while (generousNumber3 < 0) {
                     printf("Only positive number is allowed, please try again:\n");
                     scanf("%d", &generousNumber3);
@@ -146,33 +150,124 @@ int main() {
                 } else {
                     printf("This number does not share.\n");
                 }
-                dividersSum3=0;
+                dividersSum3 = 0;
                 break;
             }
 
-            // Case 4: determine wether a number is a prime.
-            /* Examples:
-            This one brings joy: 3, 5, 11
-            This one does not bring joy: 15, 8, 99
-            Please notice: the number has to be bigger than 0.
-            */
+            case 4: {
+                // Case 4: determine wether a number is a prime.
+                /* Examples:
+                This one brings joy: 3, 5, 11
+                This one does not bring joy: 15, 8, 99
+                Please notice: the number has to be bigger than 0.
+                */
+                printf("Enter a number: :\n");
+                scanf("%d", &number4);
+                // Check validation
+                while (number4 < 0) {
+                    printf("Only positive number is allowed, please try again:\n");
+                    scanf("%d", &number4);
+                }
+                //Special case
+                if (number4 == 1) {
+                    printf("The circle remains incomplete.\n");
+                    flag4 = 1;
+                    break;
+                }
+                if (flag4 == 1) {
+                    //Cleanup
+                    reveresedNumber4 = 0, flag4 = 0;
+                    break;
+                }
+                //Check if the number is prime
+                for (int i = 2; i < number4; i++) {
+                    if ((number4 % i) == 0) {
+                        printf("The circle remains incomplete.\n");
+                        flag4 = 1;
+                        break;
+                    }
+                }
+                if (flag4 == 1) {
+                    //Cleanup
+                    reveresedNumber4 = 0, flag4 = 0;
+                    break;
+                }
+                //Reverse the given num
+                while (number4 > 0) {
+                    reveresedNumber4 = reveresedNumber4 * 10 + number4 % 10;
+                    number4 /= 10;
+                }
+                printf("%d\n", reveresedNumber4);
+                //Check if the reversed number is prime
+                for (int i = 2; i < reveresedNumber4; i++) {
+                    if ((number4 % i) == 0) {
+                        printf("%d\n", i);
+                        printf("The circle remains incomplete.\n");
+                        flag4 = 1;
+                        break;
+                    }
+                }
+                if (flag4 == 1) {
+                    //Cleanup
+                    reveresedNumber4 = 0, flag4 = 0;
+                    break;
+                }
+                printf("This number completes the circle of joy!\n");
+                //Cleanup
+                reveresedNumber4 = 0, flag4 = 0;
+                break;
+            }
+            case 5: {
+                // Happy numbers: Print all the happy numbers between 1 to the given number.
+                // Happy number is a number which eventually reaches 1 when replaced by the sum of the square of each digit
+                /* Examples:
+                Happy :) : 7, 10
+                Not Happy :( : 5, 9
+                Please notice: the number has to be bigger than 0.
+                */
+                printf("Enter a number: :\n");
+                scanf("%d", &number5);
+                // Check validation
+                while (number5 < 0) {
+                    printf("Only positive number is allowed, please try again:\n");
+                    scanf("%d", &number5);
+                }
+                printf("Happy numbers between 1 and %d: ", number5);
+                // Iterate all numbers from 1 to the given number - number5
+                for (int i = 1; i <= number5; i++) {
+                    numberTemp5 = i;
+                    squereDigitsSum5;
+                    // Check if the current number is happy - According to a little research ive made: every unhappy number eventually reaches to be 4 after a few "loops"
+                    while (numberTemp5 != 1 && numberTemp5 != 4) {
+                        squereDigitsSum5 = 0;
+                        // Calculate the sum of the squares of the digits
+                        while (numberTemp5 > 0) {
+                            int digitTemp5 = numberTemp5 % 10; // Extract the last digit
+                            squereDigitsSum5 += digitTemp5 * digitTemp5;
+                            numberTemp5 /= 10;
+                        }
+                        numberTemp5 = squereDigitsSum5;
+                    }
+                    // If the number ends at 1, it is a happy number
+                    if (numberTemp5 == 1) {
+                        printf("%d ", i);
+                    }
+                }
+                //Clenup
+                squereDigitsSum5 = 0, numberTemp5 = 0;
+                printf("\n");
+                break;
+            }
 
-
-            // Happy numbers: Print all the happy numbers between 1 to the given number.
-            // Happy number is a number which eventually reaches 1 when replaced by the sum of the square of each digit
-            /* Examples:
-            Happy :) : 7, 10
-            Not Happy :( : 5, 9
-            Please notice: the number has to be bigger than 0.
-            */
-
-            // Festival of Laughter: Prints all the numbers between 1 the given number:
-            // and replace with "Smile!" every number that divided by the given smile number
-            // and replace with "Cheer!" every number that divided by the given cheer number
-            // and replace with "Festival!" every number that divided by both of them
-            /* Example:
-            6, smile: 2, cheer: 3 : 1, Smile!, Cheer!, Smile!, 5, Festival!
-            */
+            case 6: {
+                // Festival of Laughter: Prints all the numbers between 1 the given number:
+                // and replace with "Smile!" every number that divided by the given smile number
+                // and replace with "Cheer!" every number that divided by the given cheer number
+                // and replace with "Festival!" every number that divided by both of them
+                /* Example:
+                6, smile: 2, cheer: 3 : 1, Smile!, Cheer!, Smile!, 5, Festival!
+                */
+            }
             default: {
                 printf("This option is not available, please try again.\n");
             }
